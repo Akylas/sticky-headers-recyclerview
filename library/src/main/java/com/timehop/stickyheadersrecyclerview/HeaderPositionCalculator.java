@@ -20,6 +20,7 @@ public class HeaderPositionCalculator {
   private final OrientationProvider mOrientationProvider;
   private final HeaderProvider mHeaderProvider;
   private final DimensionCalculator mDimensionCalculator;
+  private boolean mSticky = true; // Headers are sticky by default.
 
   /**
    * The following fields are used as buffers for internal calculations. Their sole purpose is to avoid
@@ -59,6 +60,10 @@ public class HeaderPositionCalculator {
     }
 
     return offset <= margin && mAdapter.getHeaderId(position) >= 0;
+  }
+
+  public void setSticky(boolean sticky) {
+    mSticky = sticky;
   }
 
   /**
@@ -131,12 +136,12 @@ public class HeaderPositionCalculator {
       translationX = firstView.getLeft() - leftMargin + mTempRect1.left;
       translationY = Math.max(
           firstView.getTop() - topMargin - header.getHeight() - mTempRect1.bottom,
-          getListTop(recyclerView) + mTempRect1.top);
+          mSticky ? getListTop(recyclerView) + mTempRect1.top : Integer.MIN_VALUE);
     } else {
       translationY = firstView.getTop() - topMargin + mTempRect1.top;
       translationX = Math.max(
           firstView.getLeft() - leftMargin - header.getWidth() - mTempRect1.right,
-          getListLeft(recyclerView) + mTempRect1.left);
+          mSticky ? getListLeft(recyclerView) + mTempRect1.left : Integer.MIN_VALUE);
     }
 
     headerMargins.set(translationX, translationY, translationX + header.getWidth(),

@@ -166,4 +166,12 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
     mHeaderProvider.invalidate();
     mHeaderRects.clear();
   }
+
+  /**
+   * Determines the behavior of the headers. They're sticky by default.
+   * @param sticky set to true if the headers should be sticky, false otherwise.
+   */
+  public void setHeadersSticky(boolean sticky) {
+    mHeaderPositionCalculator.setSticky(sticky);
+  }
 }
