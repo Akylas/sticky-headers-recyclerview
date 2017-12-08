@@ -17,6 +17,7 @@ import com.timehop.stickyheadersrecyclerview.util.OrientationProvider;
 public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration {
 
   private final StickyRecyclerHeadersAdapter mAdapter;
+//  private final RecyclerView.LayoutManager mLayoutManager;
   private final SparseArray<Rect> mHeaderRects = new SparseArray<>();
   private final HeaderProvider mHeaderProvider;
   private final OrientationProvider mOrientationProvider;
@@ -102,8 +103,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
     for (int i = 0; i < childCount; i++) {
       View itemView = parent.getChildAt(i);
       int position = parent.getChildAdapterPosition(itemView);
-      if (position == RecyclerView.NO_POSITION ||
-              position % mAdapter.getNumColumns() > 0) {
+      if (position == RecyclerView.NO_POSITION) {
           continue;
       }
 
